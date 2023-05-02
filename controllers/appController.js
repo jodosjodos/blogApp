@@ -32,9 +32,11 @@ export const register=async(req,res)=>{
                         username,
                         email,
                         password:hashedPassword,
-                        profile:profile || ""
+                        profile
+                       
                         
                     })
+                    
 
                     await user.save()
                     return res
@@ -42,7 +44,7 @@ export const register=async(req,res)=>{
                     .send({ msg: "User saved successfully" });
                  } catch (err) {
                     console.log(err);
-             res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({err:err})
+             res.status(Status .INTERNAL_SERVER_ERROR).send({err:err})
              return
                  }
                 }
@@ -109,10 +111,19 @@ export const login=async(req,res)=>{
 export const getUser=async(req,res)=>{
  const {username}=req.params
  try {
-    
+  if(!username){
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({msg:"invalid username"})
+}  
+const user = await userModel.findOne({username})
+if(!user){
+return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({msg:"error occured user not found"})
+}
+const {password,...rest}=Object.assign({},user.toJSON())
+return res.status(StatusCodes.CREATED).send(rest)
+
     
  } catch (err) {
-    res.status(StatusCodes.BAD_REQUEST).send({msg:"can't find user data"})
+  return   res.status(StatusCodes.BAD_REQUEST).send({msg:"can't find user data"})
  }
 }
 
