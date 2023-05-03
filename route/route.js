@@ -24,7 +24,7 @@ router.route("/createResetSession").get(controller.createResetSession)
 
 // put routes
 
-router.route("/updateuser").put(controller.updateUser)
+router.route("/updateuser/:id").put(controller.updateUser)
 router.route("/resetPassowrd").put(controller.resetPassowrd)
 
 

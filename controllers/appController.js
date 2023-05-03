@@ -129,10 +129,25 @@ return res.status(StatusCodes.CREATED).send(rest)
 
 // update user // PUT
 export const updateUser=async(req,res)=>{
-    res.json("updateUSer route")
+   try {
+    const {id}=req.params
+    if(id){
+    const body=req.body;
+    const updatedUser=await userModel.updateOne({_id:id},body)
+    if(updatedUser){
+    res.status(StatusCodes.CREATED).send({msg:"user updated"})
+    }else{
+        res.status(StatusCodes.BAD_REQUEST).send({msg:"invalid credentials"})
+    }
+    }else{
+        return res.status(StatusCodes.UNAUTHORIZED).send({err:"user not found"})
+    }
+   } catch (err) {
+   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({err:err.message})
+   }
 }
 
-// generate OTP  //GET
+// generate OTP  //
 export const generateOTP=async(req,res)=>{
     res.json("OTP route")
 }
