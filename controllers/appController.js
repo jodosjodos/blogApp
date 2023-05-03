@@ -2,6 +2,7 @@ import userModel from "../model/user.model.js"
 import {StatusCodes} from "http-status-codes"
 import bcrypt from "bcrypt"
 import  Jwt  from "jsonwebtoken"
+import otpGenerator from "otp-generator"
 
 
 
@@ -130,10 +131,10 @@ return res.status(StatusCodes.CREATED).send(rest)
 // update user // PUT
 export const updateUser=async(req,res)=>{
    try {
-    const {id}=req.params
-    if(id){
+    const {userId}=req.user
+    if(userId){
     const body=req.body;
-    const updatedUser=await userModel.updateOne({_id:id},body)
+    const updatedUser=await userModel.updateOne({_id:userId},body)
     if(updatedUser){
     res.status(StatusCodes.CREATED).send({msg:"user updated"})
     }else{
@@ -149,22 +150,72 @@ export const updateUser=async(req,res)=>{
 
 // generate OTP  //
 export const generateOTP=async(req,res)=>{
-    res.json("OTP route")
+req.app.locals.OTP=await otpGenerator.generate(6,{
+    lowerCaseAlphabets:false,
+    upperCaseAlphabets:false,
+    specialChars:false
+})
+
+res.status(StatusCodes.CREATED).send({code:req.app.locals.OTP})
 }
 
 // verify OTP // GET
 export const verifyOTP=async(req,res)=>{
-    res.json(" verify OTP  route")
+   const {code}=req.query;
+   if(parseInt(req.app.locals.OTP)===parseInt(code)){
+   req.app.locals.OTP=null;
+   req.app.locals.resetSession=true;
+   return res.status(StatusCodes.CREATED).send({msg:"verify successfully"}) 
+
+   }else{
+   return res.status(StatusCodes.BAD_REQUEST).send({err:"invalid OTP"})
+   }
 }
 
 
 // RESET  password when OTP IS valid then redirect user to reset password page //get
 export const createResetSession=async(req,res)=>{
-    res.json("create reset session  route")
+   if(req.app.locals.resetSession){
+    req.app.locals.resetSession=false;
+    return res.status(StatusCodes.CREATED).send({msg:"access granted"})
+   }else{
+    return res.status(440).send({err:"session expired"})
+   }
 }
 
 
 // update user password for valid OTP //put
 export const resetPassowrd=async(req,res)=>{
-    res.json("login route")
+  try {
+    const {username,password}=req.body
+    if(!req.app.locals.resetSession){
+        return res.status(440).send({err:"session expired"})
+    }
+    try {
+       const user= await userModel.findOne({username})
+       if(user){
+       try {
+        const hashedPassword=await bcrypt.hash(password,10)
+        if(hashedPassword){
+         const updated=await userModel.updateOne({username:user.username},{password:hashedPassword})
+
+         try {
+            req.app.locals.resetSession=false
+            return res.status(StatusCodes.CREATED).send({msg:updated})
+         } catch (err) {
+            throw err
+         }
+        }
+       } catch (err) {
+       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({err:err})
+       }
+       }else{
+       return res.status(StatusCodes.NOT_FOUND).send({err:'user not found'})
+       } 
+    } catch (err) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({err:err})
+    }
+  } catch (err) {
+    return res.status(StatusCodes.UNAUTHORIZED).send({err:err})
+  }
 }
