@@ -6,11 +6,13 @@ export const router=Router()
 import { verifyUser } from "../middlwares/verifyUsername.js";
 import { Auth,localVariables } from "../middlwares/auth.js";
 
+
 // all controllers
 import * as controller from "../controllers/appController.js"
+import { registerMail } from "../controllers/mailer.js";
 
 router.route("/register").post(controller.register)
-router.route("/registerMail").post()
+router.route("/registerMail").post(registerMail)
 router.route("/authenticate").post((req,res)=>{
     res.end()
 })
