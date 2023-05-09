@@ -12,6 +12,8 @@ import otpGenerator from "otp-generator"
 //  saving user credential who make for create account // POST
 export const register=async(req,res)=>{
     try {
+        const token=process.env.JWT_PRIVATE_KEY;
+        
         const {email,username,password,profile}=req.body
         if(username,email,password){
 
@@ -219,3 +221,6 @@ export const resetPassowrd=async(req,res)=>{
     return res.status(StatusCodes.UNAUTHORIZED).send({err:err})
   }
 }
+
+
+
