@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import morgan from "morgan"
 import { connect } from "./db/conn.js"
-import { router } from "./route/route.js"
+import { userRouter } from "./route/user.js"
 import  * as dotenv from "dotenv"
 dotenv.config()
 
@@ -15,15 +15,12 @@ app.use(cors())
 app.use(morgan("tiny"))
 app.disable("x-powered-by")
 
-const port=3000
+const port=process.env.PORT
 
 
 // get req
-app.get("/",(req,res)=>{
-    res.status(201).json("home get request")
-})
-app.use("/api",router)
 
+app.use("/api/user",userRouter)
 
 
 
