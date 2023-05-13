@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 
 // create token
 
-const createToken=(_id)=>{
+export const createToken=(_id)=>{
   return  jwt.sign({_id},process.env.JWT_PRIVATE_KEY,{expiresIn:"3d"})
 }
 

@@ -10,7 +10,8 @@ import cookieSession from "cookie-session"
 import passport from "passport"
 import passportSetup from "./controllers/passport.js"
 import GoogleRouter from "./route/auth.js"
-import SuccessRouter from "./route/succes.js"
+// import SuccessRouter from "./route/succes.js"
+import { savingUser } from "./middlwares/googleSaving.js"
 
 dotenv.config()
 
@@ -20,7 +21,11 @@ const app=express()
 // middleware
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(
+    {
+        origin: 'http://localhost:5173',
+    }
+))
 app.use(morgan("tiny"))
 app.disable("x-powered-by")
 
@@ -33,7 +38,7 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use("/auth",GoogleRouter)
-app.use("/", SuccessRouter);
+app.use(savingUser);
 
 
 const port=process.env.PORT
