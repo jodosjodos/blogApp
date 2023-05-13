@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineLightMode, MdDarkMode } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
+import PropTypes from "prop-types"
 
 export const Mode = createContext();
 
@@ -39,3 +40,8 @@ export const Navbar = ({ mode, setMode }) => {
     </nav>
   );
 };
+
+Navbar.propTypes = {
+  mode: PropTypes.string.isRequired,
+  setMode: PropTypes.func.isRequired,
+};  

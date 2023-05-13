@@ -1,4 +1,4 @@
-import { Link,Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -7,14 +7,14 @@ import { useContext, useState } from "react";
 import { Mode } from "./navbar";
 
 import { useLogin } from "../hooks/useLogin";
-import {  useSelector } from "react-redux";
+// import {  useSelector } from "react-redux";
 
 
 export const LoginComponent = () => {
   const mode = useContext(Mode);
  
- const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
- console.log(isLoggedIn); 
+//  const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
+
     
 
   //    functiion
