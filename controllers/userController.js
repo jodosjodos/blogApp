@@ -31,7 +31,7 @@ export const signUpUser=async(req,res)=>{
     const token=createToken(user._id)
     return res.status(StatusCodes.CREATED).json({email,token})
   } catch (err) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({err:err.message})
+    return res.status(StatusCodes.UNAUTHORIZED).json(err.message)
   }
 
   

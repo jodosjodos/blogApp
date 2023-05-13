@@ -4,16 +4,20 @@ import morgan from "morgan"
 import { connect } from "./db/conn.js"
 import { userRouter } from "./route/user.js"
 import  * as dotenv from "dotenv"
+
+
 dotenv.config()
 
 const app=express()
 
 
 // middleware
+
 app.use(express.json())
 app.use(cors())
 app.use(morgan("tiny"))
 app.disable("x-powered-by")
+
 
 const port=process.env.PORT
 

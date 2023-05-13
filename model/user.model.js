@@ -42,7 +42,7 @@ if(!validator.isLength(username,{min:4}) || !validator.isLowercase(username)){
 const existEmail=await this.findOne({email})
 const existUsername=await this.findOne({username})
 if(existEmail  || existUsername){
-   throw Error("username or email already in used")
+   throw Error("username or email already taken")
 }
 
 const salt=await bcrypt.genSalt(10)
