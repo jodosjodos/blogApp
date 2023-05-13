@@ -21,6 +21,13 @@ export const RegisterComponent = () => {
     await signUp(username, email, password);
   };
 
+
+  // google things
+    const google=()=>{
+      
+      window.open("http://localhost:3000/auth/google")
+    }
+
   return (
     <div className={`${mode === "dark" ? "dark" : "round"}  px-12 py-5    `}>
       <div></div>
@@ -118,7 +125,7 @@ export const RegisterComponent = () => {
                   className={`signUp ${
                     mode === "dark" ? "byGoogleDark" : " byGoogle"
                   }`}
-                  href="http:localhost:3000/api/auth/google/callback"
+                  onClick={google}
                 >
                   {" "}
                   <span className="googleIcon">

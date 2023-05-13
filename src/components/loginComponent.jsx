@@ -34,6 +34,11 @@ export const LoginComponent = () => {
 
   };
   
+
+  // google things
+  const google=()=>{
+    window.open("http://localhost:3000/auth/google")
+  }
   
 
   return (
@@ -114,10 +119,10 @@ export const LoginComponent = () => {
                   className={`signUp ${
                     mode === "dark" ? "byGoogleDark" : " byGoogle"
                   }`}
-                  href="3"
+                  onClick={google}
                 >
                   {" "}
-                  <span className="googleIcon">
+                  <span className="googleIcon " onClick={google}>
                     <FcGoogle />
                   </span>{" "}
                   continue with google

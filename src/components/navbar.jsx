@@ -32,11 +32,10 @@ export const Navbar = ({ mode, setMode }) => {
           }
         >
           {mode === "dark" ? <MdOutlineLightMode /> : <MdDarkMode />}
+        <button onClick={handleLogout}>logout</button>
         </p>
       </div>
-      <div>
-        <button onClick={handleLogout}>logout</button>
-      </div>
+      
     </nav>
   );
 };
