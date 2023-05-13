@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 
 import { FcGoogle } from "react-icons/fc";
+import {BiShow,BiHide} from "react-icons/bi"
 import { useContext, useState } from "react";
 import { Mode } from "./navbar";
 
@@ -15,7 +16,11 @@ export const LoginComponent = () => {
  
 //  const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
 
-    
+    // show password state
+    const [showPassword,setShowPassword]=useState(false )
+    const handleShow=()=>{
+     setShowPassword(prev=>!prev  )
+    }
 
   //    functiion
   const [email, setEmail] = useState("");
@@ -28,6 +33,8 @@ export const LoginComponent = () => {
   
 
   };
+  
+  
 
   return (
    
@@ -67,18 +74,20 @@ export const LoginComponent = () => {
                 <label htmlFor="password" className="block  pb-3  font-bold ">
                   Password
                 </label>
-                <div>
+                <div className="relative">
                   <input
                     className={`${
                       mode === "dark" ? "darkFields" : "inputField"
                     }`}
-                    type="password"
+                    type={`${showPassword?"text":"password"}`}
                     placeholder=" enter your password"
                     id="password"
                     onChange={(e) => {
                       setPassword(e.target.value), setError("");
                     }}
+                    
                   />
+                  <span onClick={handleShow} className="show">{showPassword?<BiHide size={25}/>:<BiShow size={25} />}</span>
                 </div>
               </div>
               <div className="grid grid-cols-2  gap-16">
