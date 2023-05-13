@@ -5,6 +5,12 @@ import { connect } from "./db/conn.js"
 import { userRouter } from "./route/user.js"
 import  * as dotenv from "dotenv"
 
+// google auth
+import cookieSession from "cookie-session"
+import passport from "passport"
+import passportSetup from "./controllers/passport.js"
+import GoogleRouter from "./route/auth.js"
+import SuccessRouter from "./route/succes.js"
 
 dotenv.config()
 
@@ -17,6 +23,17 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan("tiny"))
 app.disable("x-powered-by")
+
+// google auth
+app.use(cookieSession({
+    name:"session",
+    keys:[process.env.COOKIE_SECRET],
+    maxAge:72*60*60*100
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use("/auth",GoogleRouter)
+app.use("/", SuccessRouter);
 
 
 const port=process.env.PORT
