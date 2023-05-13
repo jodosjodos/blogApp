@@ -1,36 +1,56 @@
 
+
+
+//files
+import { Mode } from "./components/navbar";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-// import { Navbar } from "./components/navbar";
+import { Navbar } from "./components/navbar";
 import { NotFound } from "./pages/notFound";
-import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
-import { Username } from "./components/username";
-import { Password } from "./components/password";
-import { Recovery } from "./components/recovery";
-import { Reset } from "./components/reset";
-import { Profile } from "./components/profile";
+
+
+// react rouder dom
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+
+// hooks
+
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+
 
 
 function App() {
+  const [mode, setMode] = useState("light")
+ const {user}="jodos"
+ const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
+
+
   return (
     <Router>
-      {/* not yet being implemented */}
-      {/* <Navbar></Navbar> */}
+     
+     <Mode.Provider value={mode}>
+     <Navbar mode={mode} setMode={setMode}/>
       <Routes>
-<Route element={<Home/>} path="/" />
-<Route element={<NotFound/>} path="*"/>
-<Route element={<Login/>} path="/login" />
-<Route element={<Register/>} path="/register" />
-<Route element={<Username/>} path="/username"/>
-<Route element={<Password/>} path="/password"/>
-<Route element={<Recovery/>} path="/recovery"/>
-<Route element={<Reset/>} path="/reset"/>
-<Route element={<Profile/>} path="/profile"/>
-
+       
+        <Route element={ isLoggedIn?<Home />:<Navigate to="/login"/>} path="/" />
+        <Route element={<NotFound />} path="*" />
+        <Route element={!user && !isLoggedIn?<Login />:<Navigate to="/"/>} path="/login" />
+        <Route element={!user?<Register />:""} path="/register" />
+        
+     
+       
+        
+       
       </Routes>
+     </Mode.Provider>
     </Router>
   );
 }
+
+
+
 
 export default App;
