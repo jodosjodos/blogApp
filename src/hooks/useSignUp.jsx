@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 export const useSignUp = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const Navigate = useNavigate();
 
   const signUp = async (username, email, password) => {
     setIsLoading(true);
@@ -26,9 +27,9 @@ export const useSignUp = () => {
         // save user to local storage
         localStorage.setItem("userCredentials", JSON.stringify(json));
         console.log(json);
-
+        Navigate("/login");
         // update auth context
-       
+
         setIsLoading(false);
       } else if (response.status === 401) {
         setError(json.err);

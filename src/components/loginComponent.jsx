@@ -1,26 +1,24 @@
 import { Link } from "react-router-dom";
 
-
-
 import { FcGoogle } from "react-icons/fc";
-import {BiShow,BiHide} from "react-icons/bi"
+import { BiShow, BiHide } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { Mode } from "./navbar";
 
 import { useLogin } from "../hooks/useLogin";
-// import {  useSelector } from "react-redux";
+import { signInWithGoogle } from "../config/firebase";
 
 
 export const LoginComponent = () => {
   const mode = useContext(Mode);
- 
-//  const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
 
-    // show password state
-    const [showPassword,setShowPassword]=useState(false )
-    const handleShow=()=>{
-     setShowPassword(prev=>!prev  )
-    }
+  
+
+  // show password state
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShow = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   //    functiion
   const [email, setEmail] = useState("");
@@ -30,23 +28,19 @@ export const LoginComponent = () => {
   const handleSubmission = async (e) => {
     e.preventDefault();
     await login(email, password);
-  
-
   };
-  
 
   // google things
-  const google=()=>{
-    window.open("http://localhost:3000/auth/google")
-  }
-  
+  const google = async () => {
+    const result = await signInWithGoogle();
+    const email = result.user.email;
+    const password = "jeandedieu2030@gmail.comN?";
+    await login(email, password);
+  };
 
   return (
-   
     <div className={`p-9  ${mode === "dark" ? "dark" : "round"}`}>
-      <div>
-        
-      </div>
+      <div></div>
       <div className=" ">
         <div className="flex  flex-col justify-center items-center pb-5">
           <h4 className="title ">Welcome Back</h4>
@@ -84,15 +78,16 @@ export const LoginComponent = () => {
                     className={`${
                       mode === "dark" ? "darkFields" : "inputField"
                     }`}
-                    type={`${showPassword?"text":"password"}`}
+                    type={`${showPassword ? "text" : "password"}`}
                     placeholder=" enter your password"
                     id="password"
                     onChange={(e) => {
                       setPassword(e.target.value), setError("");
                     }}
-                    
                   />
-                  <span onClick={handleShow} className="show">{showPassword?<BiHide size={25}/>:<BiShow size={25} />}</span>
+                  <span onClick={handleShow} className="show">
+                    {showPassword ? <BiHide size={25} /> : <BiShow size={25} />}
+                  </span>
                 </div>
               </div>
               <div className="grid grid-cols-2  gap-16">
@@ -112,11 +107,15 @@ export const LoginComponent = () => {
                 >
                   Sign In
                 </button>
-                {error && <p className=" flex text-red-800 justify-center items-center font-semibold  mt-2">{error.err}</p>}
+                {error && (
+                  <p className=" flex text-red-800 justify-center items-center font-semibold  mt-2">
+                    {error.err}
+                  </p>
+                )}
               </div>
               <div>
                 <a
-                  className={`signUp ${
+                  className={`signUp cursor-pointer ${
                     mode === "dark" ? "byGoogleDark" : " byGoogle"
                   }`}
                   onClick={google}

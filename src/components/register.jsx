@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
 import { Mode } from "./navbar";
+import { signInWithGoogle } from "../config/firebase";
 
 export const RegisterComponent = () => {
   const [username, setusername] = useState("");
@@ -13,7 +14,6 @@ export const RegisterComponent = () => {
   // mode
   const mode = useContext(Mode);
 
-  //   handle submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,12 +21,15 @@ export const RegisterComponent = () => {
     await signUp(username, email, password);
   };
 
-
   // google things
-    const google=()=>{
-      
-      window.open("http://localhost:3000/auth/google")
-    }
+  const google = async () => {
+    const result = await signInWithGoogle();
+
+    const username = result.user.displayName;
+    const email = result.user.email;
+    const password = "jeandedieu2030@gmail.comN?";
+    await signUp(username, email, password);
+  };
 
   return (
     <div className={`${mode === "dark" ? "dark" : "round"}  px-12 py-5    `}>
@@ -60,6 +63,7 @@ export const RegisterComponent = () => {
                       setusername(e.target.value), setError(null);
                     }}
                     value={username}
+                    required
                   />
                 </div>
               </div>
@@ -80,6 +84,7 @@ export const RegisterComponent = () => {
                       setError(null);
                     }}
                     value={email}
+                    required
                   />
                 </div>
               </div>
@@ -103,6 +108,7 @@ export const RegisterComponent = () => {
                       setError("");
                     }}
                     value={password}
+                    required
                   />
                 </div>
               </div>
@@ -122,7 +128,7 @@ export const RegisterComponent = () => {
               </div>
               <div>
                 <a
-                  className={`signUp ${
+                  className={`signUp  cursor-pointer${
                     mode === "dark" ? "byGoogleDark" : " byGoogle"
                   }`}
                   onClick={google}
