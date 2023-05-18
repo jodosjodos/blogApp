@@ -35,3 +35,6 @@ export const signUpUser = async (req, res) => {
     return res.status(StatusCodes.UNAUTHORIZED).json(err.message);
   }
 };
+
+
+
