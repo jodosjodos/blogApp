@@ -96,7 +96,7 @@ export const LoginComponent = () => {
                   <label htmlFor="rember">Remember me</label>
                 </div>
                 <span className="forgot selft-center  mt-2">
-                  <a href="#">Forgot Password?</a>
+                  <a href="/reset-password  ">Forgot Password?</a>
                 </span>
               </div>
               <div>

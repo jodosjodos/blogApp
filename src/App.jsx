@@ -8,7 +8,8 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { Navbar } from "./components/navbar";
 import { NotFound } from "./pages/notFound";
-
+import { ForgotPassword } from "./pages/forgotPassword";
+import { ResetPassword } from "./pages/resetPassword";
 
 // react rouder dom
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
@@ -36,11 +37,13 @@ function App() {
       <Routes>
        
         <Route element={ isLoggedIn?<Home />:<Navigate to="/login"/>} path="/" />
-        <Route element={<NotFound />} path="*" />
         <Route element={!user && !isLoggedIn?<Login />:<Navigate to="/"/>} path="/login" />
         <Route element={!user?<Register />:""} path="/register" />
+        <Route element={<ForgotPassword />} path="/reset-password" />
+        <Route element={<ResetPassword />} path="/forgot-password/:id/:token" />
+        <Route element={<NotFound />} path="*" />
         
-     
+    
        
         
        
