@@ -58,7 +58,7 @@ export const ForgotPasswordComponent = () => {
           <input
             className={`${
               mode === "dark" ? "darkFields" : "inputField"
-            }  w-[80vw]`}
+            }  w-[100%]`}
             type="email"
             placeholder="enter your email for reseting password"
             id="email"

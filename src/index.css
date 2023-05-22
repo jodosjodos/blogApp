@@ -101,7 +101,9 @@
       top: 10px;
       right: 20px;
   }
-
+.forColors{
+  color:#279b00;
+}
   /* darkmode controlleres */
 
   /* dark mode functions */
@@ -116,12 +118,12 @@
   }
   .byGoogleDark {
     background: rgba(0, 0, 0, 0.78);
-
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+
   }
 
   .logoDark {

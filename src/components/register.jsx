@@ -128,16 +128,16 @@ export const RegisterComponent = () => {
               </div>
               <div>
                 <a
-                  className={`signUp  cursor-pointer${
+                  className={`signUp cursor-pointer ${
                     mode === "dark" ? "byGoogleDark" : " byGoogle"
                   }`}
                   onClick={google}
                 >
                   {" "}
-                  <span className="googleIcon">
+                  <span className="googleIcon " onClick={google}>
                     <FcGoogle />
                   </span>{" "}
-                  continue with goole
+                  continue with google
                 </a>
               </div>
               <div>
