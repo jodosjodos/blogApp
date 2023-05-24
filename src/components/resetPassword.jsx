@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
-import { Mode } from "./navbar";
+
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export const ResetPasswordComponent = () => {
-  const mode = useContext(Mode);
+  const mode = useSelector((state) => state.mode.mode);
 
   const [message, setMessage] = useState("");
   const [found, setFound] = useState(false);

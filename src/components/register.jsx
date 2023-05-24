@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
-import { Mode } from "./navbar";
+
 import { signInWithGoogle } from "../config/firebase";
+import { useSelector } from "react-redux";
 
 export const RegisterComponent = () => {
   const [username, setusername] = useState("");
@@ -12,7 +13,7 @@ export const RegisterComponent = () => {
   const { signUp, isLoading, error, setError } = useSignUp();
 
   // mode
-  const mode = useContext(Mode);
+  const mode = useSelector((state) => state.mode.mode);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

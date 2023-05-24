@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
-import { Mode } from "./navbar";
+import { useState } from "react";
+
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export const ForgotPasswordComponent = () => {
-  const mode = useContext(Mode);
+  const mode = useSelector((state) => state.mode.mode);
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -11,16 +12,15 @@ export const ForgotPasswordComponent = () => {
 
   const setEmailFunction = (e) => {
     setEmail(e.target.value);
-    setErrorMessage("")
-    setMessage("")
-    
+    setErrorMessage("");
+    setMessage("");
   };
 
   const sendEmail = async (e) => {
     try {
       e.preventDefault();
-      if(email===""){
-        setErrorMessage("email must not be empty")
+      if (email === "") {
+        setErrorMessage("email must not be empty");
         return;
       }
       const res = await axios.post(
@@ -52,9 +52,12 @@ export const ForgotPasswordComponent = () => {
             {message}
           </p>
         )}
-        {errorMessage && <p className="flex flex-col items-center text-red-700  font-serif  mt-1">{errorMessage}</p>}
+        {errorMessage && (
+          <p className="flex flex-col items-center text-red-700  font-serif  mt-1">
+            {errorMessage}
+          </p>
+        )}
         <div className="mt-4 flex flex-cols p-9">
-          
           <input
             className={`${
               mode === "dark" ? "darkFields" : "inputField"
@@ -66,8 +69,6 @@ export const ForgotPasswordComponent = () => {
             onChange={setEmailFunction}
             value={email}
           />
-          
-         
         </div>
         <div className="flex flex-cols px-9">
           <button

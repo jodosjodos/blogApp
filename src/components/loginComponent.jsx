@@ -1,21 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import { FcGoogle } from "react-icons/fc";
 import { BiShow, BiHide } from "react-icons/bi";
-import { useContext, useState } from "react";
-import { Mode } from "./navbar";
+import { useState } from "react";
+
 
 import { useLogin } from "../hooks/useLogin";
 import { signInWithGoogle } from "../config/firebase";
-
+import { useSelector } from "react-redux";
 
 export const LoginComponent = () => {
-  const mode = useContext(Mode);
-
-  
+  const mode = useSelector((state) => state.mode.mode);
 
   // show password state
   const [showPassword, setShowPassword] = useState(false);
+
   const handleShow = () => {
     setShowPassword((prev) => !prev);
   };
@@ -24,10 +23,12 @@ export const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error, isLoading, setError } = useLogin();
+  const [authenticated,setAuthenticated]=useState(false)
 
   const handleSubmission = async (e) => {
     e.preventDefault();
     await login(email, password);
+    setAuthenticated(true)
   };
 
   // google things
@@ -40,6 +41,7 @@ export const LoginComponent = () => {
 
   return (
     <div className={`p-9  ${mode === "dark" ? "dark" : "round"}`}>
+      {authenticated && <Navigate to="/register"/>}
       <div></div>
       <div className=" ">
         <div className="flex  flex-col justify-center items-center pb-5">

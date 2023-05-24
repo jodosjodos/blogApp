@@ -1,12 +1,13 @@
-import { useContext } from "react";
+
 import { RegisterComponent } from "../components/register";
 
 import { RiChat1Line } from "react-icons/ri";
-import { Mode } from "../components/navbar";
+// import { Mode } from "../components/navbar";
+import { useSelector } from "react-redux";
 // import styles from "../components/styles/username.module.css"
 
 export const Register = () => {
-  const mode = useContext(Mode);
+  const mode = useSelector(state=>state.mode.mode)
   return (
     <main
       className={`h-[100vh] w-full    flex flex-col  justify-center items-center ${

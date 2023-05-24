@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:ital,wght@0,100;1,100;1,300&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -45,7 +45,11 @@
     font-size: 16px;
     line-height: 20px;
   }
-
+  [class*="col-"] {
+    float: left;
+    padding: 15px;
+   
+  }
   .inputField:focus {
     outline: none;
     border: none;
@@ -104,6 +108,9 @@
 .forColors{
   color:#279b00;
 }
+
+/* home  */
+
   /* darkmode controlleres */
 
   /* dark mode functions */
@@ -153,35 +160,31 @@
   .wantDark {
     color: rgba(255, 255, 255, 0.38);
   }
-
-  /*  draft */
-}
-/* @media screen and (max-width: 400px) {
-.signUp{
-   min-width:80vw;
-   margin-bottom: 2em;
-}
-.round{
- min-height: 100vh;
- margin-bottom: 0;
- padding-bottom: 3em;
-
-}
-.inputField{
-    min-width: 80vw;
-
-}
-.label{
-    padding-left: 2.5em
+/* home dark mode */
+.bordering{
+  border-left: 5px solid #279b00 ;
+  border-radius: 5px;
+  background-color: #000;
+  padding-left: 1px;
 }
 .logo{
-    justify-content: center;
+  background-color: rgba(0, 0, 0, 0.44);
+  border-bottom:  2px solid #279b00 ;
 }
-  }
+.borderPage{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius:10px;
+}
+.borderButton{
   
-  #dark{
-    background-color: black;
-  }
-  #light{
-    background-color: white;
-  } */
+  border : 2px solid #279b00 ;
+  border-radius:5px;
+  /* font-weight: ; */
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  /*  draft */
+}
+

@@ -9,6 +9,7 @@ export const authSlice = createSlice({
   reducers: {
     login: (state,action) => {
       state.isLoggedIn = true;
+      localStorage.setItem("logged?",state.isLoggedIn)
       if (action) {
         const data = action.payload.json;
        state.userData=data
@@ -16,6 +17,7 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.isLoggedIn = false;
+      localStorage.setItem("logged?",state.isLoggedIn)
     },
   },
 });

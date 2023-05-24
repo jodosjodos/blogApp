@@ -3,12 +3,14 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
-import { Navigate } from "react-router-dom";
+
+
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
 
   const dispatch2=useDispatch()
 
@@ -35,7 +37,7 @@ export const useLogin = () => {
         
         setIsLoading(false);
         dispatch2(authActions.login({json}));
-        setIsAuthenticated(true);
+        
 
       } else if (response.status === 401) {
         setError(json.err);
@@ -55,9 +57,7 @@ export const useLogin = () => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  
 
   return { login, isLoading, error, setError };
 };

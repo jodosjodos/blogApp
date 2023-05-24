@@ -1,14 +1,15 @@
 import { RiChat1Line } from "react-icons/ri";
 import { LoginComponent } from "../components/loginComponent";
-import { useContext } from "react";
-import { Mode } from "../components/navbar";
+
+// import { Mode } from "../components/navbar";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
-  const mode = useContext(Mode);
-
+  const mode = useSelector(state=>state.mode.mode)
+console.log(mode);
   return (
     <main
-      className={`h-[100vh] w-full    flex flex-col  justify-center items-center ${
+      className={` h-row-12 pb-12    flex flex-col   justify-center items-center ${
         mode === "dark" ? "darkPage" : "big"
       }`}
     >
