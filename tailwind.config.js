@@ -7,9 +7,12 @@ export default {
       colors:{
         primary:"#279B00",
         dark:{
-          hard:"0D2436",
+          hard:"#030B00",
           soft:"183B56"
         }
+      },
+      backgroundColor:{
+        secondary:"rgba(255, 255, 255, 0.03)"
       }
     },
     fontFamily:{

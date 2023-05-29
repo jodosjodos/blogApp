@@ -16,11 +16,11 @@ export const MainLayout = ({ children }) => {
           RISEBLOG
         </p>
       </div>
-      <div className="w-col-2 bg-[#050B03] h-row-12 borderPage">
+      <div className= "w-col-2 bg-[#050B03] max-h-full borderPage  relative">
 
-      <Navbar />
+      <Navbar  />
       </div>
-      <div className="w-col-10 bg-red-700">
+      <div className="w-col-10 ">
       {children}
 
       </div>

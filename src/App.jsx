@@ -6,7 +6,7 @@ import { Register } from "./pages/register";
 import { NotFound } from "./pages/notFound";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { ResetPassword } from "./pages/resetPassword";
-import { Homepage } from "./pages/homePage";
+import { Homepage } from "./pages/Home/homePage";
 
 // react rouder dom
 import {
@@ -19,6 +19,7 @@ import {
 // hooks
 
 import { useSelector } from "react-redux";
+import ArticleDetailPage from "./pages/Article/articleDetailPage";
 
 function App() {
   const { user } = "jodos";
@@ -46,6 +47,9 @@ function App() {
         <Route element={!user ? <Register /> : ""} path="/register" />
         <Route element={<ForgotPassword />} path="/reset-password" />
         <Route element={<ResetPassword />} path="/forgot-password/:id/:token" />
+
+        {/* fronted from login */}
+        <Route  path="/blog/:id" element={<ArticleDetailPage/>}/>
         <Route element={<NotFound />} path="*" />
       </Routes>
     </Router>

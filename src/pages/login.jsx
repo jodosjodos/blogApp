@@ -9,7 +9,7 @@ export const Login = () => {
 console.log(mode);
   return (
     <main
-      className={` h-row-12 pb-12    flex flex-col   justify-center items-center ${
+      className={` h-[100vh] pb-28    flex flex-col   justify-center items-center ${
         mode === "dark" ? "darkPage" : "big"
       }`}
     >
