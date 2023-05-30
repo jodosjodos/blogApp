@@ -21,7 +21,7 @@ app.use(morgan("tiny"))
 app.disable("x-powered-by")
 
 
-const port=process.env.PORT
+const port=process.env.PORT || 3000
 
 // get req
 app.use("/api/user",userRouter)

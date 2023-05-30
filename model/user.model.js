@@ -17,6 +17,23 @@
          require:[true,"please provide email"],
          unique:true
       },
+      avatar:{
+         type:String,
+         default:""
+      },
+      verified:{
+         type:Boolean,
+         default:false,
+      },
+      verificationCode:{
+      type:String,
+      require:false
+   },
+   admin:{
+      type:Boolean,
+      default:false
+   }
+         
       
       
       
