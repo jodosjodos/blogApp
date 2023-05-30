@@ -23,12 +23,12 @@ export const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error, isLoading, setError } = useLogin();
-  const [authenticated,setAuthenticated]=useState(false)
+ 
 
   const handleSubmission = async (e) => {
     e.preventDefault();
     await login(email, password);
-    setAuthenticated(true)
+
   };
 
   // google things
@@ -41,7 +41,7 @@ export const LoginComponent = () => {
 
   return (
     <div className={`p-9  ${mode === "dark" ? "dark" : "round"}`}>
-      {authenticated && <Navigate to="/register"/>}
+
       <div></div>
       <div className=" ">
         <div className="flex  flex-col justify-center items-center pb-5">

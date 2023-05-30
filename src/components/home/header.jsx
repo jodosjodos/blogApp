@@ -34,13 +34,13 @@ export const Navbar = () => {
   };
 
   return (
-    <section className="fixed top-[7rem] left-[2rem]">
+    <section className="">
       <header>
         <div className="text-white">
           <div onClick={navVisibilityHandler} className="lg:hidden">
             {isNavVisible ? <AiOutlineClose /> : <AiOutlineMenu />}
           </div>
-          <nav className={`h-row-12 ml-0 ${isNavVisible ? "mobileNavs" : "hidden"} lg:block`}>
+          <nav className={`h-row-12 ml-0 ${isNavVisible ? "mobileNavs" : "hidden"} lg:block `}>
             <ul className="grid grid-rows-2 gap-5">
               <div className="flex flex-col gap-2">
                 <Link

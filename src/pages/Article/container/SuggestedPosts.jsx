@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types"
 
 function SuggestedPosts({ className, header, posts = [],tags }) {
   return (
@@ -42,6 +43,13 @@ function SuggestedPosts({ className, header, posts = [],tags }) {
       </div>
     </div>
   );
+}
+
+SuggestedPosts.propTypes={
+  className:PropTypes.string,
+  header:PropTypes.string,
+  posts:PropTypes.array,
+  tags:PropTypes.array
 }
 
 export default SuggestedPosts;

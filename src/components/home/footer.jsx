@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 function Footer() {
   const mode = useSelector((state) => state.mode.mode);
   return (
-    <section className="bg-dark-hard">
+    <section className="bg-dark-hard min-w-full pr-24">
       <footer className="container mx-auto grid grid-cols-10 px-5 py-10 gap-10 gap-x-5 md:pt-20 md:grid-cols-12 lg:grid-cols-10 lg:gap-x-10">
         <div className="col-span-5 md:col-span-3 lg:col-span-2">
           <h3 className="text-white font-bold md:text-lg">Product</h3>

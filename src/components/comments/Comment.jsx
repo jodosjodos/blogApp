@@ -34,7 +34,7 @@ export const Comment = ({
 
 
   return (
-    <div className={`flex flex-col flex-nowrap items-start gap-x-3 bg-secondary p-3  lg:text-xl ${
+    <div className={`flex flex-col flex-nowrap items-start gap-x-3 bg-secondary p-3   ${
       parentId ? 'replyComment' : ''
     }  rounded-lg`}>
       <img

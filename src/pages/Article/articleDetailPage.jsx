@@ -79,7 +79,7 @@ export default function ArticleDetailPage() {
           <img
             src={images.Article}
             alt="profile image  "
-            className="rounded-xl w-full"
+            className="rounded-xl w-fit"
           />
           <Link
             className="text-primary text-sm font-robot inline-block mt-4 font-bold md:text-base"
