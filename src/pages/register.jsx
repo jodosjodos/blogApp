@@ -24,7 +24,7 @@ export const Register = () => {
             color={`${mode === "dark" ? "#fff" : "#000"}`}
           />
         </span>
-        <span className="inline-block ml-2 font-semibold">ipsum</span>
+        <span className="inline-block ml-2 font-semibold">RISEBLOG</span>
       </div>
 
       <div>

@@ -185,6 +185,21 @@
   align-items: center;
   justify-content: center;
 }
+/* article dark mode */
+.replyComment {
+  margin:  1em 0 0 1em;
+  background-color:red;
+}
   /*  draft */
 }
 
+@media screen and (max-width:440px) {
+  .mobileNavs{
+    background-color:#050B03;
+    width: 18em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

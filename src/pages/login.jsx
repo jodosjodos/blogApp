@@ -9,7 +9,7 @@ export const Login = () => {
 console.log(mode);
   return (
     <main
-      className={` h-[100vh] pb-28    flex flex-col   justify-center items-center ${
+      className={` h-[100vh] pb-28    flex flex-col   justify-center items-center  pt-28   ${
         mode === "dark" ? "darkPage" : "big"
       }`}
     >
@@ -23,7 +23,7 @@ console.log(mode);
             color={`${mode === "dark" ? "#fff" : "#000"}`}
           />
         </span>
-        <span className="inline-block ml-2 font-semibold">ipsum</span>
+        <span className="inline-block ml-2 font-semibold">RISEBLOG</span>
       </div>
 
       <div>

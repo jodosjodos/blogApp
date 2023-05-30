@@ -42,7 +42,7 @@ export const getCommentsData = async () => {
           _id: "c",
           name: "Jessica C. Stephens",
         },
-        desc: "I'm always interested in your content :)",
+        desc: "I'm always interested in your content :",
         post: "1",
         parent: null,
         replyOnUser: null,

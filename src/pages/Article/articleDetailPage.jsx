@@ -4,6 +4,7 @@ import { MainLayout } from "../../components/home/MainLayout";
 import { images } from "../../constant/images";
 import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
+import SocialShareButtons from "../../components/SocialShareButtons";
 
 const BreadCrumb = [
   {
@@ -106,12 +107,22 @@ export default function ArticleDetailPage() {
           </div>
           <CommentsContainer className="mt-10" logginedUSerId="a"/>
         </article>
+        <div>
         <SuggestedPosts
           header="Latest Article"
           posts={latestPosts}
           tags={tags}
           className="mt-8 lg:mt-0 max-w-xs"
         />
+          <div className="mt-7">
+         <h2 className="font-roboto font-medium text-white mb-4 md:text-xl">Share on :</h2>
+         <SocialShareButtons 
+         url={encodeURI(`https://moonfo.com/post/client-side-and-server-side-explanation`)}
+         title={encodeURIComponent( "Client-side and Server-side explanation")}
+         />
+       </div>
+        </div>
+     
       </section>
     </MainLayout>
   );
