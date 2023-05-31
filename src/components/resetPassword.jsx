@@ -22,7 +22,7 @@ export const ResetPasswordComponent = () => {
   };
 
   const validate = async () => {
-    const res = await axios.get("http://localhost:3000/api/user/validate/", {
+    const res = await axios.get("http://localhost:4000/api/user/validate/", {
       params: { id },
     });
     if (res.status == 201) {
@@ -99,7 +99,7 @@ export const ResetPasswordComponent = () => {
               mode === "dark" ? "darkFields" : "inputField"
             }  w-[80%]`}
             type={`${showPassword ? "text" : "password"}`}
-            placeholder=" enter your password"
+            placeholder=" enter your new  password"
             id="password"
             onChange={validatePassword}
           />
@@ -114,7 +114,7 @@ export const ResetPasswordComponent = () => {
             className="signUp text-white  w-[80vw]"
             onClick={sendPassword}
           >
-            Send
+          Update password
           </button>
         </div>
         <a

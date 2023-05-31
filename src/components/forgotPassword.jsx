@@ -24,7 +24,7 @@ export const ForgotPasswordComponent = () => {
         return;
       }
       const res = await axios.post(
-        "http://localhost:3000/api/user/sendPasswordLink",
+        "http://localhost:4000/api/user/sendPasswordLink",
         { email }
       );
       if (res.status === 201) {
