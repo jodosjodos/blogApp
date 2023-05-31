@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {useDispatch} from "react-redux"
+
 
 import axios from "axios";
+import { userActions } from "../store/reducers/userReducer";
 
 export const useSignUp = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const Navigate = useNavigate();
+  const dispatch=useDispatch()
 
   const signUp = async (username, email, password) => {
     setIsLoading(true);
@@ -14,7 +18,7 @@ export const useSignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/signUp",
+        "http://localhost:4000/api/user/signUp",
         {
           username,
           email,
@@ -25,20 +29,23 @@ export const useSignUp = () => {
 
       if (response.status === 201) {
         // save user to local storage
-        localStorage.setItem("userCredentials", JSON.stringify(json));
+        setIsLoading(false);
+        dispatch(userActions.setUserInfo(json))
+        localStorage.setItem("account", JSON.stringify(json));
         console.log(json);
-        Navigate("/login");
+        Navigate("/");
+
         // update auth context
 
-        setIsLoading(false);
       } else if (response.status === 401) {
         setError(json.err);
-        console.log(json.err);
+      
       } else {
-        console.log(json.err);
+        
         setError(json.err);
       }
     } catch (err) {
+      
       setError(err.response.data);
     } finally {
       setIsLoading(false);

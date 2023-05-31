@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { BiShow, BiHide } from "react-icons/bi";
 import { useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
 
@@ -11,15 +12,19 @@ export const RegisterComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signUp, isLoading, error, setError } = useSignUp();
-
+  // show password state
+  const [showPassword, setShowPassword] = useState(false);
   // mode
   const mode = useSelector((state) => state.mode.mode);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(username, email, password);
     await signUp(username, email, password);
+  };
+
+  const handleShow = () => {
+    setShowPassword((prev) => !prev);
   };
 
   // google things
@@ -37,7 +42,7 @@ export const RegisterComponent = () => {
       <div></div>
       <div>
         <div className="flex  flex-col justify-center items-center pb-5 ">
-          <h4 className="title ">Welcome to ipsum</h4>
+          <h4 className="title ">Welcome to RISEBLOG</h4>
           <span className={` ${mode === "dark" ? "wantDark" : "want"}  `}>
             You might want to chat right now
           </span>
@@ -96,21 +101,21 @@ export const RegisterComponent = () => {
                 >
                   Password
                 </label>
-                <div>
+                <div className="relative">
                   <input
                     className={`${
                       mode === "dark" ? "darkFields" : "inputField"
                     }`}
-                    type="password"
+                    type={`${showPassword ? "text" : "password"}`}
                     placeholder=" enter your password"
                     id="password"
                     onChange={(e) => {
-                      setPassword(e.target.value);
-                      setError("");
+                      setPassword(e.target.value), setError("");
                     }}
-                    value={password}
-                    required
                   />
+                  <span onClick={handleShow} className="show">
+                    {showPassword ? <BiHide size={25} /> : <BiShow size={25} />}
+                  </span>
                 </div>
               </div>
               <div>
@@ -120,7 +125,7 @@ export const RegisterComponent = () => {
               <div>
                 <button
                   type="submit"
-                  className="signUp text-white sm:mb-3 "
+                  className={`signUp text-white sm:mb-3 ${isLoading ? "#279B60 opacity-30" :"bg-primary"} `}
                   disabled={isLoading}
                 >
                   Sign Up

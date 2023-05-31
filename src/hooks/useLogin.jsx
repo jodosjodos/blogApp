@@ -1,20 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { authActions } from "../store/authSlice";
+import { authActions } from "../store/reducers/authSlice";
+import { userActions } from "../store/reducers/userReducer";
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-
+  const Navigate = useNavigate();
   const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        "http://localhost:4000/api/user/login",
         {
           email,
           password,
@@ -24,8 +26,11 @@ export const useLogin = () => {
 
       if (response.status === 201) {
         // save user to local storage
-        localStorage.setItem("userCredentials", JSON.stringify(json));
+        setIsLoading(false);
+        dispatch(userActions.setUserInfo(json))
+        localStorage.setItem("account", JSON.stringify(json));
         console.log(json);
+        Navigate("/");
 
         // update auth context
         dispatch(authActions.login({ json }));

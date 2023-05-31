@@ -34,13 +34,13 @@ export const CTA = () => {
           <div className="w-3/4 mx-auto relative">
             
             <div></div>
-            <div className="w-full rounded-xl bg-white p-3 z-[1] relative">
+            <div className="w-full rounded-xl bg-secondary p-3 z-[1] relative">
               <img
-                src={images.Blinders}
+                src={images.Article}
                 alt="article image"
-                className=" rounded-3xl"
+                className=" rounded-3xl m-2"
               />
-              <div className="bg-secondary rounded-lg p-3">
+              <div className="bg-secondary  text-white rounded-lg p-3">
         <h4 className=" m-3 ">jodos</h4>
         <p>As a designer, I believe that user experience should always be at the forefront of any project. My design philosophy is centered around creating digital products that are not only aesthetically pleasing but also intuitive and easy to use. With a keen eye for detail and a strong uuser  See more</p>
      </div>

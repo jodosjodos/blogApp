@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { FcGoogle } from "react-icons/fc";
 import { BiShow, BiHide } from "react-icons/bi";
@@ -103,10 +103,8 @@ export const LoginComponent = () => {
               </div>
               <div>
                 <button
-                  type="submit"
-                  className="signUp text-white "
-                  disabled={isLoading}
-                >
+               className={`signUp text-white sm:mb-3 ${isLoading ? "#279B60 opacity-30" :"bg-primary"} `}
+               disabled={isLoading}>
                   Sign In
                 </button>
                 {error && (

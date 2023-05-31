@@ -13,17 +13,16 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
+
 } from "react-router-dom";
 
 // hooks
 
-import { useSelector } from "react-redux";
+
 import ArticleDetailPage from "./pages/Article/articleDetailPage";
 
 function App() {
   const { user } = "jodos";
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
  
   return (
@@ -36,12 +35,12 @@ function App() {
         /> */}
 
         <Route
-          element={isLoggedIn ? <Homepage /> : <Navigate to="/login" />}
+          element={ <Homepage/>}
           path="/"
         />
 
         <Route
-          element={!user && !isLoggedIn ? <Login /> : <Navigate to="/" />}
+          element={ <Login />}
           path="/login"
         />
         <Route element={!user ? <Register /> : ""} path="/register" />
