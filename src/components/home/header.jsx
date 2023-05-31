@@ -102,8 +102,11 @@ export const Navbar = () => {
                       >
                         logout
                       </Link>
-                      <Link className="borderButton w-col-7 mt-2 hover:bg-[#279b00]">
-                        dashboard
+                      <Link
+                        className="borderButton w-col-7 mt-2 hover:bg-[#279b00]"
+                        to="/profile"
+                      >
+                        Profile
                       </Link>
                     </>
                   ) : (

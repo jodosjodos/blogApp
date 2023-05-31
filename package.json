@@ -1,7 +1,6 @@
 {
   "name": "client",
   "private": true,
-
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -12,12 +11,14 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@tanstack/react-query": "^4.29.12",
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.22.0",
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.44.2",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
