@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { MainLayout } from "../../components/home/MainLayout";
 import { getUserProfile, updateProfile } from "../../services/index/users";
@@ -13,12 +13,13 @@ import { toast } from "react-hot-toast";
 export const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const userState = useSelector((state) => state.user);
 
   const {
     data: profileData,
-    isLoading: profileIsLoading,
-    error: profileError,
+    isLoading: profileIsLoading
+  
   } = useQuery({
     queryFn: () => {
       return getUserProfile({ token: userState.userInfo.token });
@@ -26,7 +27,7 @@ export const ProfilePage = () => {
     queryKey: ["profile"],
   });
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isLoading :updateProfileIsLoading} = useMutation({
     mutationFn: ({ username, email, password }) => {
       return updateProfile({
         token: userState.userInfo.token,
@@ -36,6 +37,7 @@ export const ProfilePage = () => {
     onSuccess: (data) => {
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem("account", JSON.stringify(data));
+      queryClient.invalidateQueries(["profile"]);
       toast.success("profile is  updated");
     },
     onError: (error) => {
@@ -61,21 +63,20 @@ export const ProfilePage = () => {
       password: "",
     },
     values: {
-      username: profileIsLoading ? "" : profileData.username,
-      email: profileIsLoading ? "" : profileData.email,
+      username: profileIsLoading ? "" : profileData?.username,
+      email: profileIsLoading ? "" : profileData?.email,
     },
     mode: "onChange",
   });
 
   const submitHandler = (data) => {
-    
     const { username, email, password } = data;
-    mutate({username, email, password});
+    mutate({ username, email, password });
   };
 
   return (
     <MainLayout>
-      <section className="container mx-auto px-5 py-10">
+      <section className=" container mx-auto px-5 py-10">
         <div className="w-full max-w-sm mx-auto ">
           <ProfilePicture avatar={profileData?.avatar} />
           <form onSubmit={handleSubmit(submitHandler)}>
@@ -166,7 +167,7 @@ export const ProfilePage = () => {
 
             <button
               type="submit"
-              disabled={!isValid || profileIsLoading}
+              disabled={!isValid || profileIsLoading  || updateProfileIsLoading}
               className={`signUp text-white sm:mb-3  `}
             >
               Update

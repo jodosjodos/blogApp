@@ -40,4 +40,24 @@ export const getUserProfile = async ({ token }) => {
     }
 
 
+    export const updateProfilePicture = async ({ token,formData}) => {
+      try {
+        const config={
+          headers:{
+            "Content-Tyoe":"multipart/form-data",
+            Authorization:`Bearer ${token}`
+    
+          }
+        }
+    
+        const {data} =await axios.put("http://localhost:4000/api/user/updateProfilePicture",formData,config)
+       
+          return data
+      } catch (error) {
+        if (error.response && error.response.data.message)
+        throw new Error(error.response.data.message);
+      throw new Error(error.message);
+    }
+      }
 
+  
