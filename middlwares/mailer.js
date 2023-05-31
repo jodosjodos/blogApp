@@ -28,7 +28,7 @@ export const sendMail = async (req, res, next) => {
       body: {
         intro: "welcome to ipsum blog app 🍾🎉 " + email,
         body: "you have signed up successfuly ,welcome",
-        outro: "looking forward to you enjoying features of ipsum blog app",
+        outro: "looking forward to you enjoying features of <---- RISE ---> ",
       },
     };
     let mail = await MailGenerator.generate(response);
