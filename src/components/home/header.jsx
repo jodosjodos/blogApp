@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
 import { MdOutlineLightMode, MdDarkMode } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-
-import { modeActions } from "../../store/reducers/mode";
 import { RiHomeSmile2Fill } from "react-icons/ri";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import {
+  AiOutlineClose,
+  AiOutlineMenu,
+  AiFillHome,
+  AiOutlineInfoCircle,
+} from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
+import { FcContacts } from "react-icons/fc";
+import { ImPriceTag } from "react-icons/im";
+import { modeActions } from "../../store/reducers/mode";
 import { navVisibilityActions } from "../../store/reducers/navVisibilySlice";
 import { Logout } from "../../store/actions/user";
 
@@ -51,46 +59,59 @@ export const Navbar = () => {
               <div className="flex flex-col gap-2">
                 <Link
                   to="/home"
-                  className="flex flex-row py-3 items-center justify-start pl-1 hover:bordering"
+                  className="flex flex-row py-3 items-center justify-start pl-1 hover:bordering gap-2"
                 >
-                  <RiHomeSmile2Fill size={32} color="#279B00" />
+                  <AiFillHome size={32} color="#279B00" />
                   <span className="font-bold">Home</span>
                 </Link>
                 <Link
                   to="/Articles"
-                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering"
+                  className=" flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
-                  <RiHomeSmile2Fill size={32} color="#279B00" />
+                  <FaStar size={32} color="#279B00" />
                   <span className="font-bold">Articles</span>
                 </Link>
                 <Link
                   to="/aboutUs"
-                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering"
+                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
-                  <RiHomeSmile2Fill size={32} color="#279B00" />
+                  <AiOutlineInfoCircle size={32} color="#279B00" />
                   <span className="font-bold">About us</span>
                 </Link>
                 <Link
                   to="/contactUs"
-                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering"
+                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
-                  <RiHomeSmile2Fill size={32} color="#279B00" />
+                  <FcContacts size={32} color="#279B00" />
                   <span className="font-bold">Contact us</span>
                 </Link>
                 <Link
                   to="/Pricing"
-                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering"
+                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2 "
                 >
-                  <RiHomeSmile2Fill size={32} color="#279B00" />
+                  <ImPriceTag size={32} color="#279B00" />
                   <span className="font-bold">Pricing</span>
                 </Link>
                 <Link
                   to="/fq"
-                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering"
+                  className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
                   <RiHomeSmile2Fill size={32} color="#279B00" />
                   <span className="font-bold">Fq</span>
                 </Link>
+                {userState ? (
+                  <>
+                    <Link
+                      className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
+                      to="/profile"
+                    >
+                      <CgProfile size={32} color="#279B00" />
+                      <span className="font-bold">Profile</span>
+                    </Link>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex flex-col pb-0">
                 <div>
@@ -98,30 +119,25 @@ export const Navbar = () => {
                     <>
                       <Link
                         onClick={handleLogout}
-                        className="borderButton w-col-7 mt-2 hover:bg-[#279b00]"
+                        className="borderButton w-col-7 mt-2 hover:bg-[#279b00] "
                       >
                         logout
-                      </Link>
-                      <Link
-                        className="borderButton w-col-7 mt-2 hover:bg-[#279b00]"
-                        to="/profile"
-                      >
-                        Profile
                       </Link>
                     </>
                   ) : (
                     <Link
                       to="/login"
-                      className="borderButton w-col-7 hover:bg-[#279b00]"
+                      className="borderButton w-col-8 hover:bg-[#279b00]"
                     >
                       Sign in
                     </Link>
                   )}
                 </div>
-
-                <p onClick={handleMode}>
-                  {mode === "dark" ? <MdOutlineLightMode /> : <MdDarkMode />}
-                </p>
+                <button className="borderButton w-col-7 mt-2 hover:bg-[#279b00]">
+                  <p onClick={handleMode}>
+                    {mode === "dark" ? <MdOutlineLightMode /> : <MdDarkMode />}
+                  </p>
+                </button>
               </div>
             </ul>
           </nav>

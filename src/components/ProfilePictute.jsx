@@ -17,6 +17,12 @@ const handleFileChange=(e)=>{
  setOpenCrop(true)
 }
 
+
+
+const deleteImageHandler=()=>{
+setPhoto({url:"",file:""})
+}
+
   return (
 
 <>
@@ -39,10 +45,12 @@ createPortal(<CropEasy photo={photo} setOpenCrop={setOpenCrop}/>,document.getEle
             </div>
           )}
         </label>
-        <input type="file" name="" className="sr-only" id="profilePicture"  onChange={handleFileChange}/>
+        <input type="file" name="" className="sr-only " id="profilePicture"  onChange={handleFileChange}/>
       </div>
 
-      <button className="px-3 py-1.5 rounded-lg font-semibold border-2 border-red-500 mt-2 hover:bg-red-500 text-white">
+      <button className="px-3 py-1.5 rounded-lg font-semibold border-2 border-red-500 mt-2 hover:bg-red-500 text-white"
+      onClick={deleteImageHandler}
+      >
         Delete
       </button>
     </div></>
