@@ -47,7 +47,7 @@ export const ResetPasswordComponent = () => {
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}[\]|\\:;"'<>,.?/~`]).{8,}$/;
       if (strongPasswordPattern.test(password)) {
         const res = await axios.put(
-          "http://localhost:3000/api/user/updateUser/",
+          "http://localhost:4000/api/user/updateUser/",
           { password },
           { params: { id } }
         );
