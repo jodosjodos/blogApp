@@ -57,14 +57,15 @@ export const Navbar = () => {
           >
             <ul className="grid grid-rows-2 gap-5">
               <div className="flex flex-col gap-2">
-                <Link
-                  to="/home"
+                <Link onClick={navVisibilityHandler}
+                  to="/"
                   className="flex flex-row py-3 items-center justify-start pl-1 hover:bordering gap-2"
                 >
                   <AiFillHome size={32} color="#279B00" />
                   <span className="font-bold">Home</span>
                 </Link>
                 <Link
+                onClick={navVisibilityHandler}
                   to="/Articles"
                   className=" flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
@@ -72,6 +73,7 @@ export const Navbar = () => {
                   <span className="font-bold">Articles</span>
                 </Link>
                 <Link
+                onClick={navVisibilityHandler}
                   to="/aboutUs"
                   className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
@@ -79,6 +81,7 @@ export const Navbar = () => {
                   <span className="font-bold">About us</span>
                 </Link>
                 <Link
+                onClick={navVisibilityHandler}
                   to="/contactUs"
                   className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
@@ -86,6 +89,7 @@ export const Navbar = () => {
                   <span className="font-bold">Contact us</span>
                 </Link>
                 <Link
+                onClick={navVisibilityHandler}
                   to="/Pricing"
                   className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2 "
                 >
@@ -93,6 +97,7 @@ export const Navbar = () => {
                   <span className="font-bold">Pricing</span>
                 </Link>
                 <Link
+                onClick={navVisibilityHandler}
                   to="/fq"
                   className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                 >
@@ -102,6 +107,7 @@ export const Navbar = () => {
                 {userState ? (
                   <>
                     <Link
+                    onClick={navVisibilityHandler}
                       className="flex flex-row py-4 items-center justify-start pl-1 hover:bordering gap-2"
                       to="/profile"
                     >
@@ -118,6 +124,7 @@ export const Navbar = () => {
                   {userState ? (
                     <>
                       <Link
+                      
                         onClick={handleLogout}
                         className="borderButton w-col-7 mt-2 hover:bg-[#279b00] "
                       >

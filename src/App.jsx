@@ -22,7 +22,7 @@ function App() {
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<ForgotPassword />} path="/reset-password" />
         <Route element={<ResetPassword />} path="/forgot-password/:id/:token" />
-        <Route path="/blog/:id" element={<ArticleDetailPage />} />
+        <Route path="/blog/:slug" element={<ArticleDetailPage />} />
         <Route element={<NotFound />} path="*" />
       </Routes>
       <Toaster />

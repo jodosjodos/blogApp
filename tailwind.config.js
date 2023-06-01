@@ -54,7 +54,7 @@ export default {
     
 
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
   preflight: {
     padding: 0,
     margin: 0,

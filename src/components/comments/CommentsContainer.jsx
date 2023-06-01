@@ -16,7 +16,7 @@ export default function CommentsContainer({ className, logginedUSerId }) {
 
   const mainComments = comments.filter((comment) => comment.parent === null);
   const [affectedComment, setAffectedComment] = useState(null);
-  console.log(comments);
+ 
 
   useEffect(() => {
     const fetchCommentsData = async () => {
