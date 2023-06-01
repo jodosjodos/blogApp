@@ -37,13 +37,15 @@ export const updatePost = async (req, res, next) => {
     }
 
     const handleUpdatePostData = async (data) => {
-      const { title, caption, slug, body, tags, categories } = JSON.parse(data);
+      let{ title, caption, slug, body, tags, categories } = JSON.parse(data);
+      slug=slug.replace(/\s/g,"_")
       post.title = title || post.title;
       post.caption = caption || post.caption;
       post.slug = slug || post.slug;
       post.body = body || post.body;
       post.tags = tags || post.tags;
       post.categories = categories || post.categories;
+      post.user==req.user._id || post.user
       const updatedPost = await post.save();
 
       return res.status(StatusCodes.CREATED).json(updatedPost);
