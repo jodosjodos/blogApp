@@ -4,14 +4,15 @@ export const postRouter = express.Router();
 import {
   createPost,
   deletePost,
+  getAllPosts,
   getPost,
   updatePost,
 } from "../controllers/postControllers.js";
 import { adminGaurd, authGuard } from "../middlwares/authMiddlware.js";
 
-postRouter.post("/", authGuard, adminGaurd, createPost);
+postRouter.route("/").post(authGuard, adminGaurd, createPost).get(getAllPosts);
 postRouter
   .route("/:slug")
   .put(authGuard, adminGaurd, updatePost)
   .delete(authGuard, adminGaurd, deletePost)
-  .get(getPost)
+  .get(getPost);
