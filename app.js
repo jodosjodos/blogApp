@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url';
 import { connect } from "./db/conn.js"
 import { userRouter } from "./route/user.js"
 import { postRouter } from "./route/post.js"
+import { commentRouter } from "./route/comment.js"
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +36,7 @@ const port=process.env.PORT || 4000
 // get req
 app.use("/api/user",userRouter)
 app.use("/api/posts",postRouter)
+app.use("/api/comments",commentRouter)
 
 // static assets
 app.use('/uploads/',express.static(path.join(__dirname,"/uploads")))

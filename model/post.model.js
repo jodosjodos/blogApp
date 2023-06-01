@@ -36,7 +36,7 @@ export const PostSchema = new mongoose.Schema(
     tags: { type: [String] },
     categories: [{ type: Schema.Types.ObjectId, ref: "PostCategories" }],
   },
-  { timestamps: true }
+  { timestamps: true , toJSON:{virtuals:true} }
 );
 
 
@@ -47,5 +47,5 @@ PostSchema.virtual("comments",{
     foreignField:"post"
 })
 
-const Post = model("Post", PostSchema);
-export default Post;
+export const Post = model("Post", PostSchema);
+

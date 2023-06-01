@@ -1,9 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import { v4 as uuid4 } from "uuid";
-import createError from "http-errors"
+import createError from "http-errors";
 
-
-import Post from "../model/post.model.js";
+import { Post } from "../model/post.model.js";
 import { Comment } from "../model/comment.model.js";
 import { uploadPicture } from "../middlwares/uploadPictureMiddlware.js";
 import { fileRemover } from "../utils/fileRemover.js";
@@ -31,11 +30,10 @@ export const createPost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   try {
-    const {slug}=req.params
-    const post = await Post.findOne({slug});
+    const { slug } = req.params;
+    const post = await Post.findOne({ slug });
     if (!post) {
-    throw createError.NotFound("post not found or ur slug not found")
-  
+      throw createError.NotFound("post not found or ur slug not found");
     }
 
     const handleUpdatePostData = async (data) => {
@@ -47,7 +45,7 @@ export const updatePost = async (req, res, next) => {
       post.tags = tags || post.tags;
       post.categories = categories || post.categories;
       const updatedPost = await post.save();
-     
+
       return res.status(StatusCodes.CREATED).json(updatedPost);
     };
 
@@ -56,7 +54,12 @@ export const updatePost = async (req, res, next) => {
         const upload = uploadPicture.single("postPicture");
         upload(req, res, (err) => {
           if (err) {
-            reject(createError.BadRequest("An unknown error occurred during file upload", err));
+            reject(
+              createError.BadRequest(
+                "An unknown error occurred during file upload",
+                err
+              )
+            );
           } else {
             resolve();
           }
@@ -77,7 +80,7 @@ export const updatePost = async (req, res, next) => {
     } else {
       let filename = post.photo;
       post.photo = "";
-      
+
       if (filename) {
         fileRemover(filename);
       }
@@ -86,8 +89,7 @@ export const updatePost = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
+};
 
 // dellete post
 export const deletePost = async (req, res, next) => {
@@ -111,3 +113,51 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPost = async (req, res, next) => {
+  try {
+    const { slug, page = 1, limit = 10 } = req.params;
+    const skip = (page - 1) * limit;
+
+    const post = await Post.findOne({ slug })
+      .populate({
+        path: "user",
+        select: ["avatar", "username"],
+      })
+      .populate({
+        path: "comments",
+        match: {
+          check: false,
+          parent: null,
+        },
+        populate: [
+          {
+            path: "user",
+            select: ["avatar", "username"],
+          },
+          {
+            path: "replies",
+            match: {
+              check: true,
+            },
+            select: ["field1", "field2","desc"], // Select only the required fields
+          },
+        ],
+        options: {
+          skip,
+          limit,
+        },
+      })
+      .select("-secretField") // Exclude any sensitive or unnecessary fields
+      .lean();
+
+    if (!post) {
+      throw createError.NotFound("Post not found");
+    }
+
+    return res.status(StatusCodes.OK).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
+
