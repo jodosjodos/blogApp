@@ -1,12 +1,14 @@
 import express from "express" 
 import cors from "cors"
 import morgan from "morgan"
-import { connect } from "./db/conn.js"
-import { userRouter } from "./route/user.js"
 import  * as dotenv from "dotenv"
 import path from "path"
-import { join, dirname } from 'path';
+import {  dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { connect } from "./db/conn.js"
+import { userRouter } from "./route/user.js"
+import { postRouter } from "./route/post.js"
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,6 +33,7 @@ const port=process.env.PORT || 4000
 
 // get req
 app.use("/api/user",userRouter)
+app.use("/api/posts",postRouter)
 
 // static assets
 app.use('/uploads/',express.static(path.join(__dirname,"/uploads")))

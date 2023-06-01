@@ -7,7 +7,7 @@ import { resetPasswordLink,validateId,updateUserPassword } from "../middlwares/s
 
 // middlware
 import { sendMail } from "../middlwares/mailer.js"
-import { authGuard } from "../middlwares/auth.js"
+import { authGuard } from "../middlwares/authMiddlware.js"
 import { updateProfile, updateProfilePicture, userProfile } from "../controllers/userController2.js"
 
 // login route 
