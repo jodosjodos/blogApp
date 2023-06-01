@@ -1,7 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import { v4 as uuid4 } from "uuid";
 import createError from "http-errors"
+
+
 import Post from "../model/post.model.js";
+import { Comment } from "../model/comment.model.js";
 import { uploadPicture } from "../middlwares/uploadPictureMiddlware.js";
 import { fileRemover } from "../utils/fileRemover.js";
 
@@ -84,3 +87,27 @@ export const updatePost = async (req, res, next) => {
     next(err);
   }
 }
+
+
+// dellete post
+export const deletePost = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const deletedPost = await Post.deleteOne({ slug });
+
+    if (deletedPost.deletedCount === 0) {
+      throw createError.NotFound("Post not found");
+    }
+
+    const deleteCommentsPromise = Comment.deleteMany({ post: deletedPost._id });
+    // Perform other asynchronous tasks here, if any
+
+    await Promise.all([deleteCommentsPromise]);
+
+    return res.status(StatusCodes.OK).json({
+      message: "Post has been deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

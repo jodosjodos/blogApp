@@ -11,7 +11,7 @@ export const CommentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    postId: { type: Schema.Types.ObjectId, ref: "Pist", required: true },
+    post: { type: Schema.Types.ObjectId, ref: "Pist", required: true },
     check: { type: Boolean, default: false },
     parent: {
       type: Schema.Types.ObjectId,
@@ -33,5 +33,5 @@ CommentSchema.virtual("replies",{
     foreignField:"parent"
 })
 
-const Comment = model("Comment", CommentSchema);
-export default Comment;
+export const Comment = model("Comment", CommentSchema);
+
