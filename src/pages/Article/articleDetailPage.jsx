@@ -14,62 +14,14 @@ import { images } from "../../constant/images";
 import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import SocialShareButtons from "../../components/SocialShareButtons";
-import { getSinglePost } from "../../services/index/posts";
+import { getAllPosts, getSinglePost } from "../../services/index/posts";
 import { useState } from "react";
 import { stables } from "../../constant/stables";
 import { ArticleDetailsSkeleton } from "../../components/ArticleDetailsSkeleton";
 import { ErrorMessage } from "../../components/errorMessage";
 import { useSelector } from "react-redux";
 
-const latestPosts = [
-  {
-    _id: "1",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
 
-  {
-    _id: "2",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
-  {
-    _id: "3",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
-  {
-    _id: "4",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
-  {
-    _id: "5",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
-  {
-    _id: "6",
-    image: images.Article,
-    title: "Help children  get better education",
-    createdAt: "2023-01-28T15:35:53.67+0000",
-  },
-];
-
-const tags = [
-  "Medical",
-  "LifeStyle",
-  "Learn",
-  "Healthy",
-  "Food",
-  "Diet",
-  "Education",
-];
 
 export default function ArticleDetailPage() {
   const [breadCrumbData, setBreadCrumbData] = useState([]);
@@ -80,7 +32,7 @@ export default function ArticleDetailPage() {
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["blog", slug],
     onSuccess: (data) => {
-      console.log(data);
+      console.log(window.location.href);
       setBreadCrumbData([
         {
           name: "home",
@@ -102,6 +54,15 @@ export default function ArticleDetailPage() {
       );
     },
   });
+
+
+
+  const { data : postsData } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
+   
+  });
+
 // console.log(com);
   return (
     <MainLayout>
@@ -149,8 +110,8 @@ export default function ArticleDetailPage() {
             <div>
               <SuggestedPosts
                 header="Latest Article"
-                posts={latestPosts}
-                tags={tags}
+                posts={postsData}
+                tags={data?.tags}
                 className="mt-8 lg:mt-0 max-w-xs"
               />
               <div className="mt-7">
@@ -159,10 +120,10 @@ export default function ArticleDetailPage() {
                 </h2>
                 <SocialShareButtons
                   url={encodeURI(
-                    `https://moonfo.com/post/client-side-and-server-side-explanation`
+                   window.location.href
                   )}
                   title={encodeURIComponent(
-                    "Client-side and Server-side explanation"
+                    data?.title
                   )}
                 />
               </div>
