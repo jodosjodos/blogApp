@@ -6,6 +6,7 @@ export const CommentForm = ({
   formSubmitHandler,
   formCancelHandler = null,
   initialText="",
+  loading=false
 }) => {
   const [value, setValue] = useState(initialText);
   const submitHandler = (e) => {
@@ -37,7 +38,8 @@ export const CommentForm = ({
           )}
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-lg font-semibold border-2 border-[#279B00] mt-2 hover:bg-primary"
+            className="px-6 py-2.5 rounded-lg font-semibold border-2 border-[#279B00] mt-2 hover:bg-primary disabled:opacity-70 disabled:cursor-not-allowed"
+            disabled={loading}
             // onClick={formCancelHandler}
           >
             {btnLabel}
@@ -52,5 +54,6 @@ CommentForm.propTypes = {
   btnLabel: PropTypes.string.isRequired,
   formSubmitHandler: PropTypes.func.isRequired,
   formCancelHandler: PropTypes.func,
-  initialText:PropTypes.string
+  initialText:PropTypes.string,
+  loading:PropTypes.bool
 };

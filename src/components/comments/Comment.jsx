@@ -4,6 +4,7 @@ import { FiMessageSquare, FiEdit2, FiTrash } from "react-icons/fi";
 // files
 import { images } from "../../constant/images";
 import { CommentForm } from "./commentForm";
+import {stables} from "../../constant/stables"
 
 export const Comment = ({
   comment,
@@ -36,16 +37,16 @@ export const Comment = ({
   return (
     <div className={`flex flex-col flex-nowrap items-start gap-x-3 bg-secondary p-3   ${
       parentId ? 'replyComment' : ''
-    }  rounded-lg`}>
+    }  rounded-lg ${comment.check}`}>
       <img
-        src={images.Profile3}
+        src={comment?.user?.avatar ? stables.UPLOAD_FOLDER_BASE_URL+comment.user.avatar : images.Profile}
         alt="user image"
-        className="w-9 h-9 object-cover rounded-lg mb-3"
+        className="w-[35px] h-[35px] object-cover rounded-lg mb-6"
       />
       <div className="flex-1 flex-col  ">
-        <h5 className="font-bold text-white lg:text-sm">{comment.user.name}</h5>
+        <h5 className="font-bold text-white lg:text-sm">{comment?.user?.username}</h5>
         <span className="text-xs text-medium">
-          {new Date(comment.createdAt).toLocaleDateString("en-US", {
+          {new Date(comment?.createdAt).toLocaleDateString("en-US", {
             day: "numeric",
             month: "short",
             year: "numeric",
@@ -121,8 +122,8 @@ export const Comment = ({
       
        replies && replies.length >0 && (
           <div>
-            {replies.map((reply)=>{
-              
+            {replies?.map((reply)=>{
+              console.log(reply);
               return (
               <Comment
                key={reply._id}

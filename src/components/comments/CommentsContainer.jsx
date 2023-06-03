@@ -1,88 +1,74 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import {v4 as uuidV4} from "uuid"
+import { createNewComment } from "../../services/index/comment";
+import { useMutation } from "@tanstack/react-query";
+import {useSelector} from "react-redux"
+import {toast} from "react-hot-toast"
 
 
 import { CommentForm } from "./commentForm";
-import { getCommentsData } from "../../data/comments";
+
 
 import { Comment } from "./comment";
 
-export default function CommentsContainer({ className, logginedUSerId }) {
- 
-  const myUuid=uuidV4()
-
-  const [comments, setComments] = useState([]);
-
-  const mainComments = comments.filter((comment) => comment.parent === null);
+export default function CommentsContainer({
+  className,
+  logginedUSerId,
+  comments,
+  postSlug
+}) {
   const [affectedComment, setAffectedComment] = useState(null);
- 
+  const userState=useSelector(state=>state.user)
 
-  useEffect(() => {
-    const fetchCommentsData = async () => {
-      const commentData = await getCommentsData();
-      setComments(commentData);
-    };
 
-    fetchCommentsData();
-  }, []);
+  const { mutate: mutateNewComment, isLoading: isLoadingNewComment } =
+    useMutation({
+      mutationFn: ({ token, desc, slug, parent, replyOnUser }) => {
+        return createNewComment({ token, desc, slug, parent, replyOnUser });
+      },
+      onSuccess:()=>{
+        toast.success("your comment is sent successfully , it will be  visible after confirmation of admin")
+      },
+      onError:(error)=>{
+        toast.error(error.message)
+        console.log(error);
+      }
+    });
+
+    useEffect(() => {
+      setAffectedComment(null);
+    }, []);
+    
 
   const addCommentHandler = (value, parent = null, replyOnUser = null) => {
-    const newComment = {
-      _id:myUuid ,
-      user: {
-        _id: "a",
-        name: "Paul M.Williams",
-      },
-      desc: value,
-      post: "1",
-      parent: parent,
-      replyOnUser: replyOnUser,
-      createdAt: new Date().toISOString(),
-    };
-
-    setComments((curState) => [newComment, ...curState]);
-    setAffectedComment(null);
+    mutateNewComment({ desc: value, slug:postSlug,parent, replyOnUser ,token:userState?.userInfo?.token});
+    setAffectedComment(null)
   };
 
   // update your commnet
   const updateCommentHandler = (value, commentId) => {
-    const updatedComments = comments.map((comment) => {
-      if (comment._id == commentId) {
-        return { ...comment, desc: value };
-      }
-      return comment;
-    });
-    setComments(updatedComments);
     setAffectedComment(null);
   };
 
   // delete comment
   const deleteCommentHandler = (commentId) => {
-    const updatedComments = comments.filter((comment) => {
-      return comment._id !== commentId;
-    });
-    // return updatedComments
-    setComments(updatedComments);
+    setAffectedComment(null);
   };
 
+  // console.log(comments);
 
   // get replies
-  const getRepliesHandler=(commentId)=>{
-    return comments.filter((comment)=>  comment.parent===commentId
-  ).sort((a,b)=>{
-    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-  })
-  }
 
   return (
     <div className={className}>
       <CommentForm
         btnLabel="Send"
         formSubmitHandler={(value) => addCommentHandler(value)}
+        loading={isLoadingNewComment}
+
       />
       <div className="space-y-4 mt-8">
-        {mainComments.map((comment) => (
+        {comments.map((comment) => (
           <Comment
             key={comment._id}
             comment={comment}
@@ -92,7 +78,7 @@ export default function CommentsContainer({ className, logginedUSerId }) {
             addComment={addCommentHandler}
             updateComment={updateCommentHandler}
             deleteComment={deleteCommentHandler}
-            replies={getRepliesHandler(comment._id)}
+            replies={comment.replies}
           />
         ))}
       </div>
@@ -104,4 +90,6 @@ CommentsContainer.propTypes = {
   className: PropTypes.string.isRequired,
   logginedUSerId: PropTypes.string.isRequired,
   affectedComment: PropTypes.string,
+  comments: PropTypes.array,
+  postSlug:PropTypes.string
 };
