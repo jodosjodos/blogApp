@@ -24,3 +24,40 @@ export const createComment =async(req,res,next)=>{
         next(error)
     }
 }
+
+
+export const updateComment=async(req,res)=>{
+    try {
+        const {desc}=req.body
+        const {commentId}=req.params
+       const comment=await Comment.findById({_id:commentId})
+       if(!comment){
+        throw createError.NotFound("sorry comment doesn't found")
+       }
+
+       comment.desc=desc | comment.desc
+
+
+        const updatedComment=await  comment.save()
+        return res.status(StatusCodes.CREATED).json(updatedComment)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const deleteComment=async(req,res)=>{
+    try {
+     
+        const {commentId}=req.params
+       const comment=await Comment.findByIdAndDelete({_id:commentId})
+       if(!comment){
+           throw createError.NotFound("sorry comment doesn't found")
+        }
+        await Comment.deleteMany({parent:comment._id})
+
+      
+        return res.status(StatusCodes.CREATED).json({msg:"post deleted successfully"})
+    } catch (error) {
+        next(error)
+    }
+}
