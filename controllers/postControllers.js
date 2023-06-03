@@ -129,7 +129,7 @@ export const getPost = async (req, res, next) => {
       .populate({
         path: "comments",
         match: {
-          check: false,
+          check:true,
           parent: null,
         },
         populate: [
@@ -142,7 +142,13 @@ export const getPost = async (req, res, next) => {
             match: {
               check: true,
             },
-            select: ["field1", "field2","desc"], // Select only the required fields
+            populate:[
+              {
+                path:"user",
+                select:["avatar","username"]
+              }
+            ],
+          
           },
         ],
         options: {
